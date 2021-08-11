@@ -1,0 +1,59 @@
+html,
+#__next {
+  height: 100%;
+}
+body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#map {
+  height: 78%;
+}
+
+/* map overlay css start */
+.LoadSummaryOnMap .Link {
+  flex: 0 1 auto;
+  height: 0;
+  overflow: hidden;
+  font-size: 12px;
+  opacity: 0;
+  transition: all 0.3s ease-out;
+}
+.LoadSummaryOnMap:hover .Link {
+  height: 36px;
+  opacity: 1;
+}
+
+/* map overlay css End */
+
+/* antd override css */
+.ant-form-item-label {
+  padding: 0 0 2px !important;
+  line-height: 1.5715;
+  font-weight: 500 !important;
+}
+.ant-form-item {
+  margin-bottom: 10px !important;
+}
+.anticon {
+  vertical-align: 0rem !important;
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
