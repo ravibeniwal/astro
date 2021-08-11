@@ -18,6 +18,7 @@ class MyApp extends App {
   }
 
   render() {
+    console.log("fata key", process.env.GOOGLE_MAP_KEY);
     const { Component, pageProps } = this.props;
     return (
       <>
