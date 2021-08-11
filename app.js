@@ -13,8 +13,8 @@ var app = express();
 app.use(function (req, res, next) {
   const allowedOrigins = [
     "http://127.0.0.1:8020",
-   "https://astro-ten.vercel.app"
-   "https://astrocooler.herokuapp.com",
+    "https://astro-ten.vercel.app",
+    "https://astrocooler.herokuapp.com",
     "http://localhost:3001",
     "http://localhost:3000",
   ];
