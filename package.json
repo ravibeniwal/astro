@@ -2,6 +2,9 @@
   "name": "server",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": "14.17.3"
+  },
   "scripts": {
     "build": "cd front-end-app && npm run build",
     "install-client": "cd front-end-app && npm install",
