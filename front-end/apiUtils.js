@@ -9,8 +9,8 @@ import { refreshToken } from "./store/api/authApi";
 
 export const hostname = () => {
   let hostUrl = "";
-  hostUrl = "http://localhost:3001";
-  // hostUrl = "https://192.168.0.6:8443";
+  // hostUrl = "http://localhost:3001";
+  hostUrl = "https://astrocooler.herokuapp.com";
   return hostUrl;
 };
 
