@@ -37,7 +37,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static("uploads"));
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("front-end/.next"));
+  app.use(express.static("front-end/out"));
 }
 //these are routes
 app.use("/", indexRouter);
