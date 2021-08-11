@@ -6,8 +6,8 @@
     "node": "14.17.3"
   },
   "scripts": {
-    "build": "cd front-end && npm run build",
-    "install-client": "cd front-end && npm install",
+    "build": "cd front-end && yarn build",
+    "install-client": "cd front-end && yarn",
     "heroku-postbuild": "npm run install-client && npm run build",
     "start": "nodemon ./bin/www"
   },

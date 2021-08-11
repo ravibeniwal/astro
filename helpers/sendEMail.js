@@ -2,6 +2,7 @@
 const nodemailer = require("nodemailer");
 const nodemailerSendgrid = require("nodemailer-sendgrid");
 const registrationTemplate = require("../helpers/Emailtemplates/registrationTemplate");
+const resetPasswordTemplate = require("../helpers/Emailtemplates/resetPasswordTemplate");
 
 var sendEMail = async (payload) => {
   const transporter = nodemailer.createTransport(
@@ -26,6 +27,9 @@ var sendEMail = async (payload) => {
 
     if ((data.type = "Registration")) {
       htmlData = registrationTemplate(data);
+    }
+    if ((data.type = "ResetPassword")) {
+      htmlData = resetPasswordTemplate(data);
     }
 
     const params = {

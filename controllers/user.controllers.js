@@ -10,16 +10,15 @@ exports.login = (req, res) => {
         });
       } else {
         if (req.body?.password === _loginUser[0]?.password) {
-
-User.updateOne(
-   { email: req.body?.email },   // Query parameter
-   {                     
-     lastloginDate: new Date()
-   },
-   { upsert: true }      // Options
-).catch((data)=>{
-console.log("data is here",data)
-})
+          User.updateOne(
+            { email: req.body?.email }, // Query parameter
+            {
+              lastloginDate: new Date(),
+            },
+            { upsert: true } // Options
+          ).catch((data) => {
+            console.log("data is here", data);
+          });
           res.status(200).json({
             data: _loginUser[0],
             message: "Login successfull",
@@ -54,6 +53,20 @@ exports.resetPassword = (req, res) => {
           message: "Email id does not exist",
         });
       } else {
+        sendEMail({
+          config: {
+            from: "ravibeniwal35@gmail.com",
+            to: req.body?.email,
+          },
+          data: {
+            subject: "Reset Password Request",
+            password: _loginUser.password,
+            email: res.body?.email,
+            message: `Your password for login ${_loginUser.password}`,
+            type: "ResetPassword",
+          },
+        });
+
         // send email then
         res.status(200).json({
           data: _loginUser[0],
