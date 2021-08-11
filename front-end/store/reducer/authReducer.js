@@ -2,7 +2,7 @@ import * as types from "../types";
 import { LOGIN_USER, SET_CURRENT_USER } from "../types/userTypes";
 
 const initialState = {
-  isLogin: false,
+  isLogin: true,
   registerData: {},
   loading: false,
   loginData: {},

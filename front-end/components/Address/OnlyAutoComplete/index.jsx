@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Row, Col, AutoComplete } from "antd";
+import { Form, Input, AutoComplete } from "antd";
 import { connect } from "react-redux";
 import { Loader } from "@googlemaps/js-api-loader";
 import PropTypes from "prop-types";
@@ -34,59 +34,52 @@ const OnlyAutoComplete = (props) => {
 
   return (
     <>
-      <Row gutter={6} style={{ width: "100%" }}>
-        <Col sm={24} md={24}>
-          <div className="">
-            <>
-              <Form.Item
-                className="text-left"
-                name={`${type}formattedAddress`}
-                label={`${capitalizeFirstLetter(type)} Location`}
-                colon={false}
-                rules={[
-                  {
-                    required: true,
-                    message: `Please enter ${type} address!`,
-                  },
-                ]}
-                initialValue={undefined}
-              >
-                <AutoComplete
-                  id={`${type}-address-autocomplete`}
-                  allowClear
-                  getPopupContainer={(trigger) => trigger.parentNode}
-                  options={
-                    suggestedAddress &&
-                    suggestedAddress?.map(({ place_id, description }) => ({
-                      value: JSON.stringify({
-                        id: place_id,
-                        description,
-                      }),
-                      label: description,
-                    }))
-                  }
-                  style={{ width: "100%" }}
-                  onSelect={async (e) => {
-                    const obj = JSON.parse(e);
-                    form.setFieldsValue({
-                      [`${type}formattedAddress`]: obj?.description,
-                    });
-                  }}
-                  onSearch={debounceSearch}
-                >
-                  <Input
-                    id={`${type}-autocomplete`}
-                    size="large"
-                    type="text"
-                    placeholder="123 Hill St."
-                    autoFocus
-                  />
-                </AutoComplete>
-              </Form.Item>
-            </>
-          </div>
-        </Col>
-      </Row>
+      <Form.Item
+        className="text-left"
+        style={{ width: "100%" }}
+        name={`${type}formattedAddress`}
+        label={`${capitalizeFirstLetter(type)} Location`}
+        colon={false}
+        rules={[
+          {
+            required: true,
+            message: `Please enter ${type} address!`,
+          },
+        ]}
+        initialValue={undefined}
+      >
+        <AutoComplete
+          id={`${type}-address-autocomplete`}
+          allowClear
+          getPopupContainer={(trigger) => trigger.parentNode}
+          options={
+            suggestedAddress &&
+            suggestedAddress?.map(({ place_id, description }) => ({
+              value: JSON.stringify({
+                id: place_id,
+                description,
+              }),
+              label: description,
+            }))
+          }
+          onSelect={async (e) => {
+            const obj = JSON.parse(e);
+            form.setFieldsValue({
+              [`${type}formattedAddress`]: obj?.description,
+            });
+          }}
+          onSearch={debounceSearch}
+        >
+          <Input
+            id={`${type}-autocomplete`}
+            size="large"
+            type="text"
+            style={{ width: "100%" }}
+            placeholder="123 Hill St."
+            autoFocus
+          />
+        </AutoComplete>
+      </Form.Item>
     </>
   );
 };

@@ -1,4 +1,6 @@
 import Axios from "axios";
+import { callApi } from "../../apiUtils";
+import { user } from "../apiEndPoints";
 
 export const foreCastWeatherDataApi = async ({ lat, lng }) => {
   try {
@@ -13,4 +15,25 @@ export const foreCastWeatherDataApi = async ({ lat, lng }) => {
   } catch (e) {
     return e;
   }
+};
+//For adding the forcast route
+export const addRouteApi = (data) => {
+  return callApi(
+    {
+      uriEndPoint: user.addRoute.v1,
+      body: data,
+    },
+    { disableNotifications: true }
+  );
+};
+
+//For getting the all forecast routes
+export const getForecastRoutesApi = (data) => {
+  return callApi(
+    {
+      uriEndPoint: user.getRoutes.v1,
+      body: data,
+    },
+    { disableNotifications: true }
+  );
 };

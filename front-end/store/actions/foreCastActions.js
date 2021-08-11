@@ -1,4 +1,8 @@
-import { foreCastWeatherDataApi } from "../api/foreCastApi";
+import {
+  foreCastWeatherDataApi,
+  addRouteApi,
+  getForecastRoutesApi,
+} from "../api/foreCastApi";
 import {
   SAVE_FORECAST_ROUTE,
   SAVE_WEATHER_DATA_LOADER,
@@ -50,4 +54,23 @@ export const saveFinalWeatherDataWithDays = (data) => {
     type: SAVE_FINAL_DATA_WITH_DAYS_ADDED,
     payload: data,
   };
+};
+
+export const addRouteAction = (data, cb) => async () => {
+  await addRouteApi(data)
+    .then((res) => {
+      if (cb) cb(res);
+    })
+    .catch(() => {
+      return;
+    });
+};
+export const getForecastRoutesAction = (data, cb) => async () => {
+  await getForecastRoutesApi(data)
+    .then((res) => {
+      if (cb) cb(res);
+    })
+    .catch(() => {
+      return;
+    });
 };

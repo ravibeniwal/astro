@@ -87,7 +87,7 @@ const DirectionAndRouteDisplay = forwardRef((_props, ref) => {
     }
 
     directionsService
-      .route(directionsServiceProps)
+      ?.route(directionsServiceProps)
       .then((result) => {
         // Route the directions and pass the response to a function to create
         // markers for each step.

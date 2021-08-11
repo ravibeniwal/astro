@@ -51,7 +51,7 @@ const ForeCast = () => {
             backgroundImage:
               "linear-gradient(rgb(237 237 237),rgb(198 225 188 / 27%),rgb(229 244 255))",
           }}
-          className="flex flex-col flex-col-reverse mb-4 bg-white border rounded-lg shadow md:flex-row"
+          className="flex flex-col flex-col-reverse mb-4 bg-white border rounded-lg shadow sm:flex-row"
         >
           <div className="w-full p-4">
             <ForeCastLogoSection

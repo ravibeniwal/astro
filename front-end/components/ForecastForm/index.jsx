@@ -1,10 +1,26 @@
-import { Button, Form, Select, Radio, DatePicker, Row, Col } from "antd";
+import {
+  Button,
+  Form,
+  Select,
+  Radio,
+  DatePicker,
+  Row,
+  Col,
+  notification,
+} from "antd";
 import { dateFormat } from "../../utils/utils";
 import OnlyAutoComplete from "../Address/OnlyAutoComplete";
 import PropTypes from "prop-types";
 import WeatherDisplay from "../WeatherDisplay";
 import moment from "moment";
 import { BsGeoAlt } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addRouteAction,
+  getForecastRoutesAction,
+} from "../../store/actions/foreCastActions";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const { Option } = Select;
 
@@ -13,8 +29,41 @@ const { Option } = Select;
  * let the user to submit the route for shipment
  */
 const ForecastForm = (props) => {
+  const loginData = useSelector((state) => state.auth.loginData);
+
+  const [savedRoutesData, setSavedRoutesData] = useState([]);
+
+  const dispatch = useDispatch();
   const { myref } = props;
   const [form] = Form.useForm();
+
+  const saveRoute = () => {
+    const values = form.getFieldsValue();
+    values.email = loginData.email || "ravibeniwal35@gmail.com";
+    dispatch(
+      addRouteAction(values, (data) => {
+        fetchRoutes();
+        data && notification.success({ message: "Route saved successfully" });
+      })
+    );
+  };
+  const fetchRoutes = () => {
+    dispatch(
+      getForecastRoutesAction(
+        { email: "ravibeniwal35@gmail.com" },
+        (_routes) => {
+          console.log("Fetch route data is here", _routes);
+          setSavedRoutesData(_routes);
+          _routes && notification.success({ message: "All Routes fetched" });
+        }
+      )
+    );
+  };
+
+  useEffect(() => {
+    fetchRoutes();
+    return () => {};
+  }, []);
 
   const handleFormSubmission = (values) => {
     if (myref.current) {
@@ -43,6 +92,12 @@ const ForecastForm = (props) => {
                 autoFocus
                 id="forecastRoute"
                 optionFilterProp="children"
+                onSelect={async (e) => {
+                  const obj = JSON.parse(e);
+                  delete obj["shippingDate"];
+                  form.setFieldsValue(obj);
+                  handleFormSubmission(obj);
+                }}
                 filterOption={(input, option) =>
                   option.children.toLowerCase().indexOf(input.toLowerCase()) >=
                   0
@@ -53,28 +108,29 @@ const ForecastForm = (props) => {
                     .localeCompare(optionB.children.toLowerCase())
                 }
               >
-                <Option value="1">Not Identified</Option>
-                <Option value="2">Closed</Option>
-                <Option value="3">Communicated</Option>
-                <Option value="4">Identified</Option>
-                <Option value="5">Resolved</Option>
+                {savedRoutesData?.map((route, key) => (
+                  <Option
+                    key={key}
+                    value={JSON.stringify(route)}
+                  >{`${route?.originformattedAddress} -> ${route?.destinationformattedAddress} (${route?.estimatedTransitTime} days)`}</Option>
+                ))}
               </Select>
             </Form.Item>
           </div>
           <div>
             <Row gutter={12}>
-              <Col lg={12}>
+              <Col xs={24} sm={24} md={12} lg={12}>
                 <BsGeoAlt className="text-green-400" />
                 <OnlyAutoComplete type="origin" form={form} />
               </Col>
-              <Col lg={12}>
+              <Col xs={24} sm={24} md={12} lg={12}>
                 <BsGeoAlt className="text-red-400" />{" "}
                 <OnlyAutoComplete type="destination" form={form} />
               </Col>
             </Row>
 
             <Row gutter={12}>
-              <Col lg={12}>
+              <Col xs={24} sm={24} md={12} lg={12}>
                 <Form.Item
                   name="shippingDate"
                   label="Ship Date"
@@ -87,7 +143,7 @@ const ForecastForm = (props) => {
                   />
                 </Form.Item>
               </Col>
-              <Col lg={12}>
+              <Col xs={24} sm={24} md={12} lg={12}>
                 <Form.Item
                   name="estimatedTransitTime"
                   label="Estimated Transit Time"
@@ -133,7 +189,12 @@ const ForecastForm = (props) => {
               <Button htmlType="submit" type="primary">
                 Submit
               </Button>
-              <Button style={{ marginLeft: "20px" }}>Save route</Button>
+              <Button
+                onClick={() => saveRoute()}
+                style={{ marginLeft: "20px" }}
+              >
+                Save route
+              </Button>
             </div>
           </div>
         </Form>

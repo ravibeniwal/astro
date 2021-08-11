@@ -36,6 +36,20 @@ const user = {
       uri: "/users/login",
     },
   },
+  addRoute: {
+    v1: {
+      ...defaults.methods.POST,
+      ...defaults.versions.v1,
+      uri: "/users/saveForecast",
+    },
+  },
+  getRoutes: {
+    v1: {
+      ...defaults.methods.POST,
+      ...defaults.versions.v1,
+      uri: "/users/getForecastRoutes",
+    },
+  },
   login: {
     v1: {
       ...defaults.methods.POST,
