@@ -1,7 +1,7 @@
 import router from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import CreateCustomer from "../../components/createCustomer";
+import CreateCustomer from "../../components/CreateCustomer";
 import DirectionAndRouteDisplay from "../../components/DirectionAndRouteDisplay";
 import ForecastForm from "../../components/ForecastForm";
 import ForeCastLogoSection from "../../components/ForeCastLogoSection";
