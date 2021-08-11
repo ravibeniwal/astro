@@ -1,5 +1,8 @@
 var express = require("express");
-const { saveForecastRoute } = require("../controllers/forecast.controller");
+const {
+  saveForecastRoute,
+  getForecastRoutes,
+} = require("../controllers/forecast.controller");
 const {
   login,
   createUser,
@@ -17,5 +20,6 @@ router.get("/", getAllUsers);
 router.post("/deleteUser", deleteUser);
 router.post("/resetPassword", resetPassword);
 router.post("/saveForecast", saveForecastRoute);
+router.post("/getForecastRoutes", getForecastRoutes);
 
 module.exports = router;
