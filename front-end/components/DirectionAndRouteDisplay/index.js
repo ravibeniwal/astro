@@ -175,7 +175,7 @@ const DirectionAndRouteDisplay = forwardRef((_props, ref) => {
 
       markers[counter] = new google.maps.Marker({
         position: waypointsData[counter],
-        draggable: true,
+        draggable: false,
       });
 
       check_distance += old_distance;
