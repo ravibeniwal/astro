@@ -3,15 +3,12 @@ import { Button, Form, Icon, Input } from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CompanyLogo from "../CompanyLogo";
-import { BsArrowRight } from "react-icons/bs";
 import { ArrowRightOutlined } from "@ant-design/icons";
 
 const FormItem = Form.Item;
 const ForgotPassword = (props) => {
   const dispatch = useDispatch();
   const { form, login, submitting, location } = props;
-  // const [login] = useSelector((state) => state?.auth?.loginData);
-  // const [submitting] = useSelector((state) => state?.auth?.submitting);
   const [passwordRequestSuccess, setPasswordRequestSuccess] = useState(false);
 
   const handleSubmit = (values) => {
@@ -132,7 +129,7 @@ const ForgotPassword = (props) => {
               <p className="mt-3 mb-2 text-base font-semibold text-center text-gray-900">
                 Remember your password?{" "}
                 <a
-                  href="/user/login"
+                  href="/auth/login"
                   className="text-orange-600 visited:text-blue-800"
                 >
                   Back to Sign in
@@ -140,7 +137,7 @@ const ForgotPassword = (props) => {
               </p>
               <div className="w-full text-base font-semibold text-center mt-2 ">
                 <a
-                  href="/user/login"
+                  href="/auth/login"
                   className="text-orange-600 visited:text-blue-800"
                 >
                   Back to home
