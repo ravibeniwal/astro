@@ -1,13 +1,40 @@
 import Head from "next/head";
 import PropTypes from "prop-types";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { cookies, getMeApiAction } from "../../store/actions/authActions";
+import { useSelector } from "react-redux";
+import router from "next/router";
 
 /**
  * @AuthLayout This is the Auth layout functional component.
  */
 export default function AuthLayout({
   children,
+  privateRoute,
   title = "This is the default title",
 }) {
+  const dispatch = useDispatch();
+  const isLogin = useSelector((state) => state.auth.isLogin);
+
+  const checklogin = () => {
+    // for private pages
+    if (cookies.get("isLogin") === "false" && privateRoute) {
+      router.push("/auth/login");
+    }
+  };
+
+  useEffect(() => {
+    checklogin();
+    return () => {};
+  }, [isLogin]);
+
+  useEffect(() => {
+    const id = cookies.get("userId");
+    cookies.get("isLogin") === "true" &&
+      dispatch(getMeApiAction({ userId: id }));
+    return () => {};
+  }, []);
   return (
     <div>
       <Head>
@@ -24,7 +51,7 @@ export default function AuthLayout({
           media="all"
         />
       </Head>
-      {children}
+      {!isLogin && privateRoute ? null : children}
     </div>
   );
 }
@@ -38,4 +65,8 @@ AuthLayout.propTypes = {
    * @title paramType {string}- is the string which shows the title of the page
    */
   title: PropTypes.string,
+  /**
+   * @privateRoute paramType {bool}- is the string which check private route
+   */
+  privateRoute: PropTypes.bool,
 };

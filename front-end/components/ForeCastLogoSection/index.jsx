@@ -15,13 +15,7 @@ const ForeCastLogoSection = ({ setShowSection, showSection }) => {
         {/* Button section for create new customer */}
         {showSection === "Weather" ? (
           <div style={{ padding: "5px", flexWrap: "wrap" }}>
-            <Button
-              onClick={() => {
-                // setShowSection("CreateCustomer");
-              }}
-              htmlType="submit"
-              type="primary"
-            >
+            <Button onClick={() => {}} htmlType="submit" type="primary">
               Email all users
             </Button>
             <Button

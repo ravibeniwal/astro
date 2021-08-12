@@ -5,16 +5,14 @@ var router = express.Router({ mergeParams: true });
 const controller = require("../controllers/files.controller");
 var { mediaHost } = require("../config");
 const multer = require("multer");
-// const uuidv4 = require("uuid/v4");
 var filename = "";
 const storage = multer.diskStorage({
   destination: mediaHost(),
   filename(req, file, cb) {
     var dir = "/images";
-    filename =
-      `${dir}/` + file.originalname
+    filename = `${dir}/` + file.originalname;
     cb(null, filename);
-  }
+  },
 });
 const upload = multer({ storage });
 

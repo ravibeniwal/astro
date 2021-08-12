@@ -39,7 +39,7 @@ const ForecastForm = (props) => {
 
   const saveRoute = () => {
     const values = form.getFieldsValue();
-    values.email = loginData.email || "ravibeniwal35@gmail.com";
+    values.email = loginData?.data?.email || "ravibeniwal35@gmail.com";
     dispatch(
       addRouteAction(values, (data) => {
         fetchRoutes();
@@ -50,11 +50,9 @@ const ForecastForm = (props) => {
   const fetchRoutes = () => {
     dispatch(
       getForecastRoutesAction(
-        { email: "ravibeniwal35@gmail.com" },
+        { email: loginData?.data?.email || "ravibeniwal35@gmail.com" },
         (_routes) => {
-          console.log("Fetch route data is here", _routes);
           setSavedRoutesData(_routes);
-          _routes && notification.success({ message: "All Routes fetched" });
         }
       )
     );
@@ -80,7 +78,6 @@ const ForecastForm = (props) => {
           layout="vertical"
           form={form}
           onFinish={(values) => {
-            // Update the google map on submit the route
             handleFormSubmission(values);
           }}
         >
@@ -88,7 +85,6 @@ const ForecastForm = (props) => {
             <Form.Item name="favoriteRoute" label="Favorite Route">
               <Select
                 showSearch
-                // size="large"
                 autoFocus
                 id="forecastRoute"
                 optionFilterProp="children"

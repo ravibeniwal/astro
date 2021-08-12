@@ -1,5 +1,3 @@
-const mediaHost = () => 'uploads/files';
-// return './uploads'
-
+const mediaHost = () => "uploads/files";
 
 module.exports = { mediaHost };

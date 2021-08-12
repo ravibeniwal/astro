@@ -1,26 +1,23 @@
-import router from "next/router";
-import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useRef, useState } from "react";
+import { BsPower } from "react-icons/bs";
+import { useDispatch } from "react-redux";
+
 import CreateCustomer from "../../components/CreateCustomer";
 import DirectionAndRouteDisplay from "../../components/DirectionAndRouteDisplay";
 import ForecastForm from "../../components/ForecastForm";
 import ForeCastLogoSection from "../../components/ForeCastLogoSection";
+import AuthLayout from "../../components/layout/authLayout";
 import LoggedInSection from "../../components/LoggedInSection";
 import UsersTable from "../../components/UsersTable";
+import { logoutUserAction } from "../../store/actions/authActions";
 
 /**
  * @ForeCast - Purpose of this component is
  * let the user to login
  */
 const ForeCast = () => {
-  const isLogin = useSelector((state) => state?.auth?.isLogin);
-
+  const dispatch = useDispatch();
   const myref = useRef();
-
-  useEffect(() => {
-    !isLogin && router.push("/auth/login");
-    return () => {};
-  }, []);
 
   const [showSection, setShowSection] = useState("Weather");
   const forecastRightComponent = () => {
@@ -44,8 +41,8 @@ const ForeCast = () => {
   };
 
   return (
-    <div className="m-2">
-      {isLogin && (
+    <AuthLayout title="Forecast" privateRoute={true}>
+      <div className="m-2">
         <div
           style={{
             backgroundImage:
@@ -54,6 +51,14 @@ const ForeCast = () => {
           className="flex flex-col flex-col-reverse mb-4 bg-white border rounded-lg shadow sm:flex-row"
         >
           <div className="w-full p-4">
+            <a
+              onClick={() => {
+                dispatch(logoutUserAction());
+              }}
+              className="flex float-right items-center text-xs font-semibold uppercase"
+            >
+              <BsPower /> Logout
+            </a>
             <ForeCastLogoSection
               setShowSection={setShowSection}
               showSection={showSection}
@@ -64,8 +69,8 @@ const ForeCast = () => {
             <DirectionAndRouteDisplay ref={myref} />
           </div>
         </div>
-      )}{" "}
-    </div>
+      </div>
+    </AuthLayout>
   );
 };
 

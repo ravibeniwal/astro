@@ -11,14 +11,12 @@ exports.login = (req, res) => {
       } else {
         if (req.body?.password === _loginUser[0]?.password) {
           User.updateOne(
-            { email: req.body?.email }, // Query parameter
+            { email: req.body?.email },
             {
               lastloginDate: new Date(),
             },
             { upsert: true } // Options
-          ).catch((data) => {
-            console.log("data is here", data);
-          });
+          );
           res.status(200).json({
             data: _loginUser[0],
             message: "Login successfull",
@@ -28,6 +26,24 @@ exports.login = (req, res) => {
             message: "Incorrect Password",
           });
         }
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err, message: "authentication failed" });
+    });
+};
+// get logged in user
+exports.getUser = (req, res) => {
+  User.find({ _id: req.body?.userId })
+    .then((_loginUser) => {
+      if (_loginUser && _loginUser?.length === 0) {
+        return res.status(409).json({
+          message: "User not Found",
+        });
+      } else {
+        res.status(200).json({
+          data: _loginUser[0],
+        });
       }
     })
     .catch((err) => {
@@ -60,17 +76,15 @@ exports.resetPassword = (req, res) => {
           },
           data: {
             subject: "Reset Password Request",
-            password: _loginUser.password,
+            password: _loginUser[0]?.password,
             email: res.body?.email,
-            message: `Your password for login ${_loginUser.password}`,
+            message: `Your password for login ${_loginUser[0]?.password}`,
             type: "ResetPassword",
           },
         });
 
-        // send email then
         res.status(200).json({
-          data: _loginUser[0],
-          message: `Password sent on this email id ${req.body?.email}`,
+          message: `Password sent successfully!`,
         });
       }
     })
@@ -84,7 +98,6 @@ exports.resetPassword = (req, res) => {
 exports.deleteUser = (req, res) => {
   User.findOneAndDelete({ email: req.body?.email })
     .then((_user) => {
-      console.log("user data is eher", _user);
       if (_user === null) {
         return res
           .status(200)
@@ -126,13 +139,12 @@ exports.createUser = (req, res) => {
               data: {
                 subject: "New customer registration",
                 password: randomPassword,
-                email: res.body?.email,
+                email: req.body?.email,
                 message: `Your password for login ${randomPassword}`,
                 type: "Registration",
               },
             });
             res.status(200).json(data);
-            // send email notification to user if needed
           })
           .catch((err) => {
             res.status(500).json({ message: err });

@@ -1,7 +1,7 @@
 import AuthLayout from "../../components/layout/authLayout";
 import Link from "next/link";
 import { Form, Row, Card, notification } from "antd";
-import { connect, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Button, Input } from "antd";
 import { useState } from "react";
 import PropTypes from "prop-types";
@@ -25,7 +25,7 @@ const LoginForm = () => {
     dispatch(
       loginUserAction(values, (res) => {
         setLoading(false);
-        if (res?.status === 200) {
+        if (res?.message === "Login successfull") {
           notification.success({ message: "You logged in successfully" });
         } else {
           res?.status === 409 && setError(res.data?.message);
@@ -127,10 +127,13 @@ const LoginForm = () => {
                   </Form>
                 </div>
                 <div>
-                  <div>Don't have an account yet?</div>
-                  <Link href="/auth/register">
+                  Don't have an account yet?{" "}
+                  <Link className="float-right" href="#">
                     <a href="">Request an account</a>
                   </Link>
+                </div>
+                <div className="text-center my-4">
+                  <a href="/auth/forgotpassword">Forgot password</a>
                 </div>
               </div>
               <div>
@@ -143,11 +146,6 @@ const LoginForm = () => {
     </Row>
   );
 };
-const mapStateToProps = (state) => {
-  return {
-    loginData: state.auth.loginData,
-  };
-};
 
 LoginForm.propTypes = {
   /**
@@ -156,4 +154,4 @@ LoginForm.propTypes = {
   loginData: PropTypes.object,
 };
 
-export default connect(mapStateToProps, {})(LoginForm);
+export default LoginForm;

@@ -9,8 +9,8 @@ import { refreshToken } from "./store/api/authApi";
 
 export const hostname = () => {
   let hostUrl = "";
-  // hostUrl = "http://localhost:3001";
-  hostUrl = "https://astrocooler.herokuapp.com";
+  hostUrl = "http://localhost:3001";
+  // hostUrl = "https://astrocooler.herokuapp.com";
   return hostUrl;
 };
 
@@ -65,7 +65,6 @@ export const callApiDeprecated = ({ uriEndPoint, body }) =>
         resolve(response.data);
       })
       .catch((err) => {
-        // extract the error message
         reject(err.response);
       });
   });
@@ -135,9 +134,7 @@ export const callApi = (
     })
       .then((response) => {
         resolve(response.data);
-        // eslint-disable-next-line no-underscore-dangle
         localStorage.setItem("timer", 1800);
-        // localStorage.setItem('tokenUsed', 'true');
       })
       .catch(async (err) => {
         if (!err.response) {

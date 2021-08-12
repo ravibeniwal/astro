@@ -36,6 +36,13 @@ const user = {
       uri: "/users/login",
     },
   },
+  resetPasswordLink: {
+    v1: {
+      ...defaults.methods.POST,
+      ...defaults.versions.v1,
+      uri: "/users/resetPassword",
+    },
+  },
   addRoute: {
     v1: {
       ...defaults.methods.POST,

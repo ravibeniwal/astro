@@ -21,29 +21,26 @@ let map;
 let google;
 
 export const loadMap = () => {
-  // const loader = new Loader({
-  //   apiKey: "yourAPIkey",
-  //   version: "weekly",
-  // });
-
-  // loader.load().then(() => {
-  google = window.google;
-  // Instantiate a directions service.
-  directionsService = new google.maps.DirectionsService();
-  // Create a map.
-  map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 3,
-    center: { lat: 41.85, lng: -87.65 },
-  });
-  // Create a renderer for directions and bind it to the map.
-  directionsRenderer = new google.maps.DirectionsRenderer({
-    map: map,
+  const loader = new Loader({
+    apiKey: "yourAPIkey",
+    version: "weekly",
   });
 
-  // Instantiate an info window to hold step text.
-  stepDisplay = new google.maps.InfoWindow();
-  // calculateAndDisplayRoute();
-  // });
+  loader.load().then(() => {
+    google = window.google;
+    // Instantiate a directions service.
+    directionsService = new google.maps.DirectionsService();
+    // Create a map.
+    map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 3,
+      center: { lat: 41.85, lng: -87.65 },
+    });
+    // Create a renderer for directions and bind it to the map.
+    directionsRenderer = new google.maps.DirectionsRenderer({
+      map: map,
+    });
+    stepDisplay = new google.maps.InfoWindow();
+  });
 };
 
 const DirectionAndRouteDisplay = forwardRef((_props, ref) => {

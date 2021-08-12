@@ -19,14 +19,15 @@ const LoggedInSection = ({ setShowSection }) => {
               </Avatar>
             </div>
             <div>
-              <div className="text-xs font-semibold uppercase">
-                Logged in as {loginData?.data?.role} role
+              <div className="text-xs font-semibold uppercase w-full">
+                Logged in as {loginData?.data?.role} role{" "}
               </div>
               <div className="text-base font-semibold hover:text-blue-800 text-gray-900">
                 {loginData?.data?.email}
               </div>
             </div>
           </div>
+
           {/* Button section for create new customer */}
           <div style={{ padding: "5px" }}>
             <Button

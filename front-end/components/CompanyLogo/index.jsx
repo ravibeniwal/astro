@@ -1,5 +1,4 @@
 import React from "react";
-// import logo from "/companyLogo/log.png";
 import PropTypes from "prop-types";
 
 /**

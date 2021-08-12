@@ -6,7 +6,6 @@ import "../styles/globals.css";
 import "antd/dist/antd.css";
 import { createWrapper } from "next-redux-wrapper";
 import store from "../store/store.js";
-// import loadMap from "../components/DirectionAndRouteDisplay";
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     const pageProps = {
@@ -18,7 +17,6 @@ class MyApp extends App {
   }
 
   render() {
-    console.log("fata key", process.env.GOOGLE_MAP_KEY);
     const { Component, pageProps } = this.props;
     return (
       <>

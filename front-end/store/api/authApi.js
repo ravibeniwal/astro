@@ -3,12 +3,15 @@ import { access, user } from "../apiEndPoints";
 import { cookies } from "../actions/authActions";
 import Router from "next/router";
 
-//api for getting me details
-export const getMeApi = () => {
-  return callApi({
-    uriEndPoint: access.me.v1,
-    body: {},
-  });
+//api for getting user details
+export const getMeApi = (data) => {
+  return callApi(
+    {
+      uriEndPoint: access.me.v1,
+      body: data,
+    },
+    { disableNotifications: true }
+  );
 };
 
 //api for getting the access token
@@ -27,7 +30,6 @@ export const refreshToken = () => {
       version: "/xapi/v1",
       headerProps: {
         refreshToken: cookies.get("refreshToken"),
-        storeId: "cflare.product.store",
       },
     },
   })
@@ -62,12 +64,21 @@ export const deleteCustomerApi = (data) => {
     body: data,
   });
 };
-//For deleting the customer
+//For login the user
 export const loginUserApi = (data) => {
   return callApi(
     {
-      // pass the user name and password in headerProps as apikey by btoa
       uriEndPoint: user.loginUser.v1,
+      body: data,
+    },
+    { disableNotifications: true }
+  );
+};
+//For sending the reset password link
+export const sendResetPasswordLinkApi = (data) => {
+  return callApi(
+    {
+      uriEndPoint: user.resetPasswordLink.v1,
       body: data,
     },
     { disableNotifications: true }
