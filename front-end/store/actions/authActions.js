@@ -6,6 +6,7 @@ import {
   refreshToken,
   createCustomerApi,
   fetchCustomersApi,
+  sendEmailApi,
   deleteCustomerApi,
   sendResetPasswordLinkApi,
 } from "../api/authApi";
@@ -137,7 +138,7 @@ export const deleteCustomerAction = (data, cb) => async () => {
       }
     })
     .catch((err) => {
-      console.log("error in fetching the customers", err);
+      console.log("error in delete the customers", err);
     });
 };
 export const sendResetPasswordLinkAction = (data, cb) => async () => {
@@ -151,5 +152,19 @@ export const sendResetPasswordLinkAction = (data, cb) => async () => {
       if (cb) {
         cb(err);
       }
+    });
+};
+export const sendEmailAction = (data, cb) => async () => {
+  await sendEmailApi(data)
+    .then((res) => {
+      if (cb) {
+        cb(res);
+      }
+    })
+    .catch((err) => {
+      if (cb) {
+        cb(err);
+      }
+      return;
     });
 };

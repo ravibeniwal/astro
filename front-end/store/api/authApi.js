@@ -65,6 +65,13 @@ export const deleteCustomerApi = (data) => {
     body: data,
   });
 };
+//For deleting the customer
+export const sendEmailApi = (data) => {
+  return callApi({
+    uriEndPoint: user.sendEmailAllUser.v1,
+    body: data,
+  });
+};
 //For login the user
 export const loginUserApi = (data) => {
   return callApi(

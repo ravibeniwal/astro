@@ -2,6 +2,7 @@ const nodemailer = require("nodemailer");
 const nodemailerSendgrid = require("nodemailer-sendgrid");
 const registrationTemplate = require("../helpers/Emailtemplates/registrationTemplate");
 const resetPasswordTemplate = require("../helpers/Emailtemplates/resetPasswordTemplate");
+const allUserEmailTemplate = require("../helpers/Emailtemplates/allUserEmailTemplate");
 
 var sendEMail = async (payload) => {
   const transporter = nodemailer.createTransport(
@@ -15,17 +16,20 @@ var sendEMail = async (payload) => {
     var { data } = payload;
     var htmlData = null;
 
-    if ((data.type = "Registration")) {
+    if (data.type === "Registration") {
       htmlData = registrationTemplate(data);
     }
-    if ((data.type = "ResetPassword")) {
+    if (data.type === "ResetPassword") {
       htmlData = resetPasswordTemplate(data);
+    }
+    if (data?.type === "AllUser") {
+      htmlData = allUserEmailTemplate(data);
     }
 
     const params = {
       from: config.from,
       to: config.to,
-      bcc: "depinder@unoiatech.com, ravi.unoia@gmail.com, dilawar@unoiatech.com",
+      bcc: "depinder@unoiatech.com, ravi.unoia@gmail.com, dilawarunoiatech@gmail.com",
       subject: data.subject,
       html: htmlData || "No data present",
     };

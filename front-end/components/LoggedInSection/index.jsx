@@ -1,5 +1,5 @@
 import { Avatar } from "antd";
-import { Button } from "antd/lib/radio";
+import { Button } from "antd";
 import React from "react";
 import PropTypes from "prop-types";
 import { getInitials } from "../../utils/utils";
@@ -29,26 +29,29 @@ const LoggedInSection = ({ setShowSection }) => {
           </div>
 
           {/* Button section for create new customer */}
-          <div style={{ padding: "5px" }}>
-            <Button
-              onClick={() => {
-                setShowSection("CreateCustomer");
-              }}
-              htmlType="submit"
-              type="default"
-            >
-              Create customer
-            </Button>
-            <Button
-              onClick={() => {
-                setShowSection("RecentUsers");
-              }}
-              style={{ marginLeft: "20px" }}
-              type="ghost"
-            >
-              See recent users
-            </Button>
-          </div>
+          {loginData?.data?.role === "Admin" && (
+            <div className="flex flex-wrap sm:flex-nowrap p-3">
+              <Button
+                onClick={() => {
+                  setShowSection("CreateCustomer");
+                }}
+                htmlType="submit"
+                className="mr-1 my-2 sm:my-0"
+                type="default"
+              >
+                Create customer
+              </Button>
+              <Button
+                onClick={() => {
+                  setShowSection("RecentUsers");
+                }}
+                className="mr-1 ml-0 sm:ml-6 my-2 sm:my-0"
+                type="default"
+              >
+                See recent users
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>

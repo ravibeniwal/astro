@@ -77,6 +77,37 @@ exports.getAllUsers = (req, res) => {
     });
 };
 
+exports.sendEmailToAllUsers = (req, res) => {
+  User.find({}, { email: 1, _id: 0 })
+    .sort({ lastloginDate: -1 })
+    .then((_AllUsers) => {
+      var axPromises = [];
+      // send email to all user after that send response
+      // sending a lot of email so commenting this code
+      // _AllUsers?.map((user) => {
+      //   setTimeout(async () => {
+      //     axPromises[user.email] = await sendEMail({
+      //       config: {
+      //         from: "ravibeniwal35@gmail.com",
+      //         to: user?.email,
+      //       },
+      //       data: {
+      //         subject: req.body?.subject || "Email to all user",
+      //         message: req.body?.message,
+      //         type: "AllUser",
+      //       },
+      //     });
+      //   }, 1000);
+      // });
+      Promise.all(axPromises).then(() => {
+        res.status(200).json({ message: "Email sent to all users" });
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err, message: "Error in sending emails" });
+    });
+};
+
 exports.resetPassword = (req, res) => {
   User.find({ email: req.body?.email })
     .then((_loginUser) => {

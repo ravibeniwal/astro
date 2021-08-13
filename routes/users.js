@@ -10,6 +10,7 @@ const {
   deleteUser,
   resetPassword,
   getUser,
+  sendEmailToAllUsers,
 } = require("../controllers/user.controllers");
 const authMiddleware = require("../helpers/middlewares/authMiddleware");
 var router = express.Router();
@@ -23,5 +24,6 @@ router.post("/resetPassword", resetPassword);
 router.post("/saveForecast", saveForecastRoute);
 router.post("/getForecastRoutes", getForecastRoutes);
 router.post("/get", getUser);
+router.post("/sendEmail", sendEmailToAllUsers);
 
 module.exports = router;

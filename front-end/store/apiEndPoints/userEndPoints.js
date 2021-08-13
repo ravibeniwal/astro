@@ -29,6 +29,13 @@ const user = {
       uri: "/users/deleteUser",
     },
   },
+  sendEmailAllUser: {
+    v1: {
+      ...defaults.methods.POST,
+      ...defaults.versions.v1,
+      uri: "/users/sendEmail",
+    },
+  },
   loginUser: {
     v1: {
       ...defaults.methods.POST,

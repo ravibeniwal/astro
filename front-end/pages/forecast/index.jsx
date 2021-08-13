@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 
 import CreateCustomer from "../../components/CreateCustomer";
 import DirectionAndRouteDisplay from "../../components/DirectionAndRouteDisplay";
+import EmailAllUser from "../../components/EmailAllUser";
 import ForecastForm from "../../components/ForecastForm";
 import ForeCastLogoSection from "../../components/ForeCastLogoSection";
 import AuthLayout from "../../components/layout/authLayout";
@@ -38,6 +39,9 @@ const ForeCast = () => {
     if (showSection === "CreateCustomer") {
       return <CreateCustomer setShowSection={setShowSection} />;
     }
+    if (showSection === "EmailAll") {
+      return <EmailAllUser setShowSection={setShowSection} />;
+    }
   };
 
   return (
@@ -46,7 +50,7 @@ const ForeCast = () => {
         <div
           style={{
             backgroundImage:
-              "linear-gradient(rgb(237 237 237),rgb(198 225 188 / 27%),rgb(229 244 255))",
+              "linear-gradient(rgb(170 218 255), rgba(198, 225, 188, 0.27), rgb(229, 244, 255))",
           }}
           className="flex flex-col flex-col-reverse mb-4 bg-white border rounded-lg shadow sm:flex-row"
         >
