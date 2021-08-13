@@ -86,8 +86,8 @@ export default function UsersTable({ showSection }) {
 
         {
           title: "Last Login Date",
-          dataIndex: "creationDate",
-          key: "loginDate",
+          dataIndex: "lastloginDate",
+          key: "lastloginDate",
           render: (date) => (
             <>
               <Tag color="gold" key="volcano">

@@ -19,7 +19,10 @@ export default function AuthLayout({
 
   const checklogin = () => {
     // for private pages
-    if (cookies.get("isLogin") === "false" && privateRoute) {
+    if (
+      (cookies.get("isLogin") === "false" || !cookies.get("isLogin")) &&
+      privateRoute
+    ) {
       router.push("/auth/login");
     }
   };
