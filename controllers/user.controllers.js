@@ -14,13 +14,21 @@ exports.login = (req, res) => {
             { email: req.body?.email },
             {
               lastloginDate: new Date(),
+              loginCount: _loginUser[0]?.loginCount + 1 || 1,
             },
             { upsert: true } // Options
-          );
-          res.status(200).json({
-            data: _loginUser[0],
-            message: "Login successfull",
-          });
+          )
+            .then(() => {
+              res.status(200).json({
+                data: _loginUser[0],
+                message: "Login successfull",
+              });
+            })
+            .catch((err) => {
+              res
+                .status(500)
+                .json({ error: err, message: "authentication failed" });
+            });
         } else {
           return res.status(409).json({
             message: "Incorrect Password",
@@ -52,10 +60,18 @@ exports.getUser = (req, res) => {
 };
 
 exports.getAllUsers = (req, res) => {
+  let sort;
+  if (req.query.recentUsers) {
+    sort = { lastloginDate: -1 };
+  } else {
+    sort = { creationDate: -1 };
+  }
   User.find()
+    .sort(sort)
     .then((_AllUsers) => {
       res.status(200).json(_AllUsers);
     })
+
     .catch((err) => {
       res.status(500).json({ error: err, message: "Error in fetching" });
     });

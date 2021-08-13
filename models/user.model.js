@@ -7,6 +7,7 @@ var userSchema = new mongoose.Schema({
   imageUrl: String,
   role: String,
   password: String,
+  loginCount: { type: Number },
   creationDate: { type: Date, default: Date.now },
   lastloginDate: { type: Date },
   lastUpdatedDate: { type: Date, default: Date.now },

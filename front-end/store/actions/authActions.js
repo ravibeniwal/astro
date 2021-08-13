@@ -118,8 +118,8 @@ export const createCustomerAction = (data, cb) => async () => {
     })
     .catch(() => {});
 };
-export const fetchCustomersAction = (cb) => async () => {
-  await fetchCustomersApi()
+export const fetchCustomersAction = (data, cb) => async () => {
+  await fetchCustomersApi(data)
     .then((res) => {
       if (cb) {
         cb(res);

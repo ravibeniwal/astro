@@ -1,4 +1,4 @@
-import { Table, Tag, Space, Spin, message } from "antd";
+import { Table, Tag, Space, Spin, message, Badge } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
@@ -25,9 +25,10 @@ export default function UsersTable({ showSection }) {
   };
 
   const fetchCustomers = () => {
+    const recentUsers = showSection === "RecentUsers";
     setfetchCustomerLoader(true);
     dispatch(
-      fetchCustomersAction((data) => {
+      fetchCustomersAction({ recentUsers }, (data) => {
         setCustomers(data);
         setfetchCustomerLoader(false);
       })
@@ -90,8 +91,22 @@ export default function UsersTable({ showSection }) {
           key: "lastloginDate",
           render: (date) => (
             <>
-              <Tag color="gold" key="volcano">
-                {moment(date).format("LL")}
+              {}
+              <Tag color={date ? "gold" : "lime"} key="volcano">
+                {date ? <>{moment(date).format("LL")}</> : "Not yet logged in"}
+              </Tag>
+            </>
+          ),
+        },
+        {
+          title: "Login count",
+          dataIndex: "loginCount",
+          key: "loginCount",
+          render: (count) => (
+            <>
+              <Tag color="blue" key="volcano">
+                {count > 3 && <Badge status="processing" />}
+                {count ? `${count} times` : "_"}
               </Tag>
             </>
           ),

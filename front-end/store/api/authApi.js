@@ -51,9 +51,10 @@ export const createCustomerApi = (data) => {
 };
 
 //For creating the customer
-export const fetchCustomersApi = () => {
+export const fetchCustomersApi = (queryData) => {
   return callApi({
     uriEndPoint: user.fetchCustomers.v1,
+    query: queryData,
   });
 };
 
